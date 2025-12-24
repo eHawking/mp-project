@@ -1,0 +1,105 @@
+.successPage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    padding: var(--space-2xl);
+}
+
+.successCard {
+    max-width: 500px;
+    text-align: center;
+    background: var(--bg-primary);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-3xl);
+    box-shadow: var(--shadow-xl);
+}
+
+.checkIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--space-xl);
+    background: var(--success);
+    color: white;
+    border-radius: var(--radius-full);
+    font-size: 2.5rem;
+    animation: scaleIn 0.5s ease;
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.successCard h1 {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--space-md);
+}
+
+.successCard>p {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xl);
+}
+
+.orderInfo {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+}
+
+.orderInfo p {
+    color: var(--text-primary);
+    margin-bottom: var(--space-sm);
+}
+
+.orderInfo p:last-child {
+    margin-bottom: 0;
+}
+
+.actions {
+    display: flex;
+    gap: var(--space-md);
+}
+
+.ordersBtn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.homeBtn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    text-decoration: none;
+}
