@@ -2,8 +2,7 @@
 
 import Link from 'next/link'
 import { useSession, signOut } from 'next-auth/react'
-import { useState } from 'react'
-import { useTheme } from '@/components/ThemeProvider'
+import { useState, useEffect } from 'react'
 import {
     FiSearch, FiShoppingCart, FiHeart, FiUser, FiMenu, FiX,
     FiSun, FiMoon, FiChevronDown, FiLogOut, FiPackage, FiSettings,
@@ -13,10 +12,25 @@ import styles from './Header.module.css'
 
 export default function Header() {
     const { data: session } = useSession()
-    const { theme, toggleTheme } = useTheme()
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [userMenuOpen, setUserMenuOpen] = useState(false)
     const [searchQuery, setSearchQuery] = useState('')
+    const [theme, setTheme] = useState<'light' | 'dark'>('light')
+
+    useEffect(() => {
+        const stored = localStorage.getItem('theme') as 'light' | 'dark' | null
+        if (stored) {
+            setTheme(stored)
+            document.documentElement.setAttribute('data-theme', stored)
+        }
+    }, [])
+
+    const toggleTheme = () => {
+        const newTheme = theme === 'light' ? 'dark' : 'light'
+        setTheme(newTheme)
+        localStorage.setItem('theme', newTheme)
+        document.documentElement.setAttribute('data-theme', newTheme)
+    }
 
     return (
         <header className={styles.header}>
