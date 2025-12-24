@@ -38,6 +38,12 @@ model User {
   role          UserRole   @default(BUYER)
   status        UserStatus @default(ACTIVE)
   emailVerified DateTime?
+  
+  // Two-Factor Authentication
+  twoFactorEnabled Boolean  @default(false)
+  twoFactorSecret  String?
+  backupCodes      String?  @db.Text
+  
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
 
@@ -49,6 +55,7 @@ model User {
   reviews       Review[]
   wishlist      Wishlist[]
   notifications Notification[]
+  wallet        Wallet?
 
   @@index([email])
   @@index([role])
@@ -560,3 +567,40 @@ model ChatMessage {
   @@index([sessionId])
 }
 
+// ============================================
+// DIGITAL WALLET
+// ============================================
+
+model Wallet {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  balance   Float    @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user         User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions WalletTransaction[]
+
+  @@index([userId])
+}
+
+enum TransactionType {
+  CREDIT
+  DEBIT
+  REFUND
+  CASHBACK
+}
+
+model WalletTransaction {
+  id          String          @id @default(cuid())
+  walletId    String
+  amount      Float
+  type        TransactionType
+  description String?
+  reference   String?
+  createdAt   DateTime        @default(now())
+
+  wallet Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  @@index([walletId])
+}
