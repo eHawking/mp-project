@@ -23,7 +23,7 @@
     color: var(--primary);
 }
 
-h1 {
+.title {
     font-size: var(--font-size-3xl);
     font-weight: 700;
     color: var(--text-primary);

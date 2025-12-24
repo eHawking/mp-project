@@ -51,7 +51,7 @@ export default function ProfilePage() {
                     <FiArrowLeft /> Back to Account
                 </Link>
 
-                <h1>Profile Information</h1>
+                <h1 className={styles.title}>Profile Information</h1>
 
                 <div className={styles.content}>
                     {/* Avatar Section */}
