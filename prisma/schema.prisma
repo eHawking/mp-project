@@ -512,3 +512,51 @@ model SocialPost {
   @@index([status])
   @@index([scheduledAt])
 }
+
+// ============================================
+// AI CUSTOMER SUPPORT
+// ============================================
+
+model AIAgent {
+  id          String   @id @default(cuid())
+  name        String
+  role        String
+  avatar      String?
+  personality String?  @db.Text
+  isActive    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  chatSessions ChatSession[]
+}
+
+model ChatSession {
+  id          String   @id @default(cuid())
+  sessionId   String   @unique
+  agentId     String?
+  visitorName String?
+  visitorEmail String?
+  status      String   @default("active")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  agent    AIAgent?      @relation(fields: [agentId], references: [id], onDelete: SetNull)
+  messages ChatMessage[]
+
+  @@index([sessionId])
+  @@index([status])
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  sessionId String
+  role      String   // 'user' or 'assistant'
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+
+  session ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+}
+

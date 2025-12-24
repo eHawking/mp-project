@@ -131,6 +131,22 @@
     margin-bottom: var(--space-sm);
 }
 
+.formGroup input,
+.formGroup textarea {
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    color: var(--text-primary);
+    font-size: var(--font-size-base);
+}
+
+.formGroup textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
 .apiKeyInput {
     display: flex;
     gap: var(--space-sm);
@@ -139,11 +155,6 @@
 
 .apiKeyInput input {
     flex: 1;
-    padding: var(--space-sm) var(--space-md);
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-light);
-    border-radius: var(--radius-lg);
-    color: var(--text-primary);
     font-family: monospace;
 }
 
@@ -376,36 +387,66 @@
     box-shadow: var(--shadow-card);
 }
 
-.agentsSection h2 {
+.agentsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+}
+
+.agentsHeader h2 {
     display: flex;
     align-items: center;
     gap: var(--space-sm);
     font-size: var(--font-size-lg);
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: var(--space-lg);
+    margin: 0;
+}
+
+.addAgentBtn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: var(--radius-lg);
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
 }
 
 .agentsGrid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: var(--space-md);
+    gap: var(--space-lg);
 }
 
 .agentCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    padding: var(--space-md);
+    padding: var(--space-lg);
     background: var(--bg-secondary);
     border-radius: var(--radius-xl);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.agentCard:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
 }
 
 .agentCard img {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     border-radius: var(--radius-full);
     object-fit: cover;
     margin-bottom: var(--space-sm);
     border: 3px solid var(--bg-primary);
+    box-shadow: var(--shadow-md);
 }
 
 .agentName {
@@ -413,14 +454,135 @@
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: var(--space-xs);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 .agentRole {
     font-size: var(--font-size-xs);
     color: var(--text-tertiary);
+    margin-bottom: var(--space-sm);
+}
+
+.agentActions {
+    display: flex;
+    gap: var(--space-xs);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.agentCard:hover .agentActions {
+    opacity: 1;
+}
+
+.agentActions button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--bg-primary);
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.agentActions button:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.agentActions button:last-child:hover {
+    background: var(--error);
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.modalContent {
+    background: var(--bg-primary);
+    border-radius: var(--radius-xl);
+    width: 100%;
+    max-width: 480px;
+    box-shadow: var(--shadow-xl);
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-lg);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.modalHeader h3 {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.modalHeader button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--bg-secondary);
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.modalBody {
+    padding: var(--space-lg);
+}
+
+.modalFooter {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    border-top: 1px solid var(--border-light);
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    cursor: pointer;
+}
+
+.checkbox input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary);
+}
+
+.checkbox span {
+    color: var(--text-secondary);
 }
 
 /* Responsive */
+@media (max-width: 1200px) {
+    .agentsGrid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
 @media (max-width: 1024px) {
     .stats {
         grid-template-columns: repeat(2, 1fr);
