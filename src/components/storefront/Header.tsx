@@ -212,7 +212,7 @@ export default function Header() {
 
                             {/* Mobile Menu Toggle */}
                             <button
-                                className={`${styles.menuToggle} md:hidden`}
+                                className={styles.menuToggle}
                                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             >
                                 {mobileMenuOpen ? <FiX /> : <FiMenu />}
@@ -242,6 +242,9 @@ export default function Header() {
             {/* Mobile Menu */}
             {mobileMenuOpen && (
                 <div className={styles.mobileMenu}>
+                    <button className={styles.mobileClose} onClick={() => setMobileMenuOpen(false)}>
+                        <FiX /> Close
+                    </button>
                     {showSearch && (
                         <div className={styles.mobileSearch}>
                             <FiSearch />
@@ -250,15 +253,47 @@ export default function Header() {
                     )}
                     <nav className={styles.mobileNav}>
                         {navLinks.map((link, i) => (
-                            <Link key={i} href={link.url}>{link.label}</Link>
+                            <Link key={i} href={link.url} onClick={() => setMobileMenuOpen(false)}>
+                                {link.label}
+                            </Link>
                         ))}
+                        <div className={styles.mobileDivider} />
+                        <Link href="/wishlist" onClick={() => setMobileMenuOpen(false)}>
+                            <FiHeart /> Wishlist
+                        </Link>
+                        <Link href="/cart" onClick={() => setMobileMenuOpen(false)}>
+                            <FiShoppingCart /> Cart
+                        </Link>
+                        {session ? (
+                            <>
+                                <div className={styles.mobileDivider} />
+                                <Link href="/account" onClick={() => setMobileMenuOpen(false)}>
+                                    <FiUser /> My Account
+                                </Link>
+                                <Link href="/account/orders" onClick={() => setMobileMenuOpen(false)}>
+                                    <FiPackage /> My Orders
+                                </Link>
+                                {session.user.role === 'SELLER' && (
+                                    <Link href="/seller" onClick={() => setMobileMenuOpen(false)}>
+                                        <FiShoppingBag /> Seller Dashboard
+                                    </Link>
+                                )}
+                                {session.user.role === 'ADMIN' && (
+                                    <Link href="/admin" onClick={() => setMobileMenuOpen(false)}>
+                                        <FiGrid /> Admin Panel
+                                    </Link>
+                                )}
+                                <button onClick={() => signOut()} className={styles.mobileSignOut}>
+                                    <FiLogOut /> Sign Out
+                                </button>
+                            </>
+                        ) : (
+                            <div className={styles.mobileAuth}>
+                                <Link href="/login" className="btn btn-primary" onClick={() => setMobileMenuOpen(false)}>Login</Link>
+                                <Link href="/register" className="btn btn-outline" onClick={() => setMobileMenuOpen(false)}>Register</Link>
+                            </div>
+                        )}
                     </nav>
-                    {!session && (
-                        <div className={styles.mobileAuth}>
-                            <Link href="/login" className="btn btn-primary">Login</Link>
-                            <Link href="/register" className="btn btn-outline">Register</Link>
-                        </div>
-                    )}
                 </div>
             )}
         </header>
