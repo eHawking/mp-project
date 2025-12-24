@@ -10,12 +10,29 @@ import {
 } from 'react-icons/fi'
 import styles from './Header.module.css'
 
+interface SiteSettings {
+    logoLight?: string
+    logoDark?: string
+    siteName?: string
+    headerShowSearch?: boolean
+    headerShowCart?: boolean
+    headerShowWishlist?: boolean
+    headerShowAccount?: boolean
+    headerNavLinks?: string
+}
+
 export default function Header() {
     const { data: session } = useSession()
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [userMenuOpen, setUserMenuOpen] = useState(false)
     const [searchQuery, setSearchQuery] = useState('')
     const [theme, setTheme] = useState<'light' | 'dark'>('light')
+    const [settings, setSettings] = useState<SiteSettings>({})
+    const [navLinks, setNavLinks] = useState<{ label: string, url: string }[]>([
+        { label: 'All Products', url: '/products' },
+        { label: 'Deals', url: '/deals' },
+        { label: 'Stores', url: '/stores' },
+    ])
 
     useEffect(() => {
         const stored = localStorage.getItem('theme') as 'light' | 'dark' | null
@@ -23,7 +40,25 @@ export default function Header() {
             setTheme(stored)
             document.documentElement.setAttribute('data-theme', stored)
         }
+        fetchSettings()
     }, [])
+
+    const fetchSettings = async () => {
+        try {
+            const res = await fetch('/api/settings')
+            if (res.ok) {
+                const data = await res.json()
+                setSettings(data)
+                if (data.headerNavLinks) {
+                    try {
+                        setNavLinks(JSON.parse(data.headerNavLinks))
+                    } catch { }
+                }
+            }
+        } catch (error) {
+            console.error('Error fetching settings:', error)
+        }
+    }
 
     const toggleTheme = () => {
         const newTheme = theme === 'light' ? 'dark' : 'light'
@@ -31,6 +66,12 @@ export default function Header() {
         localStorage.setItem('theme', newTheme)
         document.documentElement.setAttribute('data-theme', newTheme)
     }
+
+    const currentLogo = theme === 'dark' ? settings.logoDark : settings.logoLight
+    const showSearch = settings.headerShowSearch !== false
+    const showCart = settings.headerShowCart !== false
+    const showWishlist = settings.headerShowWishlist !== false
+    const showAccount = settings.headerShowAccount !== false
 
     return (
         <header className={styles.header}>
@@ -53,24 +94,32 @@ export default function Header() {
                     <div className={styles.headerContent}>
                         {/* Logo */}
                         <Link href="/" className={styles.logo}>
-                            <span className={styles.logoIcon}>🛍️</span>
-                            <span className={styles.logoText}>
-                                MP<span>Marketplace</span>
-                            </span>
+                            {currentLogo ? (
+                                <img src={currentLogo} alt={settings.siteName || 'Logo'} className={styles.logoImage} />
+                            ) : (
+                                <>
+                                    <span className={styles.logoIcon}>🛍️</span>
+                                    <span className={styles.logoText}>
+                                        {settings.siteName || 'MP'}<span>Marketplace</span>
+                                    </span>
+                                </>
+                            )}
                         </Link>
 
                         {/* Search Bar */}
-                        <div className={styles.searchBar}>
-                            <FiSearch className={styles.searchIcon} />
-                            <input
-                                type="text"
-                                placeholder="Search for products, brands and more..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className={styles.searchInput}
-                            />
-                            <button className={styles.searchButton}>Search</button>
-                        </div>
+                        {showSearch && (
+                            <div className={styles.searchBar}>
+                                <FiSearch className={styles.searchIcon} />
+                                <input
+                                    type="text"
+                                    placeholder="Search for products, brands and more..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className={styles.searchInput}
+                                />
+                                <button className={styles.searchButton}>Search</button>
+                            </div>
+                        )}
 
                         {/* Header Actions */}
                         <div className={styles.headerActions}>
@@ -84,71 +133,79 @@ export default function Header() {
                             </button>
 
                             {/* Wishlist */}
-                            <Link href="/wishlist" className={styles.iconButton}>
-                                <FiHeart />
-                                <span className={styles.badge}>0</span>
-                            </Link>
+                            {showWishlist && (
+                                <Link href="/wishlist" className={styles.iconButton}>
+                                    <FiHeart />
+                                    <span className={styles.badge}>0</span>
+                                </Link>
+                            )}
 
                             {/* Cart */}
-                            <Link href="/cart" className={styles.iconButton}>
-                                <FiShoppingCart />
-                                <span className={styles.badge}>0</span>
-                            </Link>
+                            {showCart && (
+                                <Link href="/cart" className={styles.iconButton}>
+                                    <FiShoppingCart />
+                                    <span className={styles.badge}>0</span>
+                                </Link>
+                            )}
 
                             {/* User Menu */}
-                            {session ? (
-                                <div
-                                    className={`${styles.userMenu} dropdown ${userMenuOpen ? 'active' : ''}`}
-                                    onMouseEnter={() => setUserMenuOpen(true)}
-                                    onMouseLeave={() => setUserMenuOpen(false)}
-                                >
-                                    <button className={styles.userButton}>
-                                        <div className={styles.avatar}>
-                                            {session.user.avatar ? (
-                                                <img src={session.user.avatar} alt="" />
-                                            ) : (
-                                                session.user.firstName?.[0] || 'U'
-                                            )}
-                                        </div>
-                                        <span className={styles.userName}>
-                                            {session.user.firstName}
-                                        </span>
-                                        <FiChevronDown />
-                                    </button>
-                                    <div className="dropdown-menu">
-                                        <Link href="/account" className="dropdown-item">
-                                            <FiUser /> My Account
-                                        </Link>
-                                        <Link href="/account/orders" className="dropdown-item">
-                                            <FiPackage /> My Orders
-                                        </Link>
-                                        <Link href="/wishlist" className="dropdown-item">
-                                            <FiHeart /> Wishlist
-                                        </Link>
-                                        {session.user.role === 'SELLER' && (
-                                            <Link href="/seller" className="dropdown-item">
-                                                <FiShoppingBag /> Seller Dashboard
-                                            </Link>
-                                        )}
-                                        {session.user.role === 'ADMIN' && (
-                                            <Link href="/admin" className="dropdown-item">
-                                                <FiGrid /> Admin Panel
-                                            </Link>
-                                        )}
-                                        <div className="dropdown-divider" />
-                                        <button
-                                            onClick={() => signOut()}
-                                            className="dropdown-item"
+                            {showAccount && (
+                                <>
+                                    {session ? (
+                                        <div
+                                            className={`${styles.userMenu} dropdown ${userMenuOpen ? 'active' : ''}`}
+                                            onMouseEnter={() => setUserMenuOpen(true)}
+                                            onMouseLeave={() => setUserMenuOpen(false)}
                                         >
-                                            <FiLogOut /> Sign Out
-                                        </button>
-                                    </div>
-                                </div>
-                            ) : (
-                                <Link href="/login" className={styles.loginButton}>
-                                    <FiUser />
-                                    <span>Login</span>
-                                </Link>
+                                            <button className={styles.userButton}>
+                                                <div className={styles.avatar}>
+                                                    {session.user.avatar ? (
+                                                        <img src={session.user.avatar} alt="" />
+                                                    ) : (
+                                                        session.user.firstName?.[0] || 'U'
+                                                    )}
+                                                </div>
+                                                <span className={styles.userName}>
+                                                    {session.user.firstName}
+                                                </span>
+                                                <FiChevronDown />
+                                            </button>
+                                            <div className="dropdown-menu">
+                                                <Link href="/account" className="dropdown-item">
+                                                    <FiUser /> My Account
+                                                </Link>
+                                                <Link href="/account/orders" className="dropdown-item">
+                                                    <FiPackage /> My Orders
+                                                </Link>
+                                                <Link href="/wishlist" className="dropdown-item">
+                                                    <FiHeart /> Wishlist
+                                                </Link>
+                                                {session.user.role === 'SELLER' && (
+                                                    <Link href="/seller" className="dropdown-item">
+                                                        <FiShoppingBag /> Seller Dashboard
+                                                    </Link>
+                                                )}
+                                                {session.user.role === 'ADMIN' && (
+                                                    <Link href="/admin" className="dropdown-item">
+                                                        <FiGrid /> Admin Panel
+                                                    </Link>
+                                                )}
+                                                <div className="dropdown-divider" />
+                                                <button
+                                                    onClick={() => signOut()}
+                                                    className="dropdown-item"
+                                                >
+                                                    <FiLogOut /> Sign Out
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <Link href="/login" className={styles.loginButton}>
+                                            <FiUser />
+                                            <span>Login</span>
+                                        </Link>
+                                    )}
+                                </>
                             )}
 
                             {/* Mobile Menu Toggle */}
@@ -167,16 +224,15 @@ export default function Header() {
             <nav className={styles.nav}>
                 <div className="container">
                     <div className={styles.navContent}>
-                        <Link href="/products" className={styles.navLink}>All Products</Link>
-                        <Link href="/products?category=electronics" className={styles.navLink}>Electronics</Link>
-                        <Link href="/products?category=fashion" className={styles.navLink}>Fashion</Link>
-                        <Link href="/products?category=home" className={styles.navLink}>Home & Garden</Link>
-                        <Link href="/products?category=beauty" className={styles.navLink}>Beauty</Link>
-                        <Link href="/products?category=sports" className={styles.navLink}>Sports</Link>
-                        <Link href="/stores" className={styles.navLink}>Stores</Link>
-                        <Link href="/deals" className={`${styles.navLink} ${styles.dealsLink}`}>
-                            🔥 Deals
-                        </Link>
+                        {navLinks.map((link, i) => (
+                            <Link
+                                key={i}
+                                href={link.url}
+                                className={`${styles.navLink} ${link.label.toLowerCase().includes('deal') ? styles.dealsLink : ''}`}
+                            >
+                                {link.label.toLowerCase().includes('deal') ? '🔥 ' : ''}{link.label}
+                            </Link>
+                        ))}
                     </div>
                 </div>
             </nav>
@@ -184,18 +240,16 @@ export default function Header() {
             {/* Mobile Menu */}
             {mobileMenuOpen && (
                 <div className={styles.mobileMenu}>
-                    <div className={styles.mobileSearch}>
-                        <FiSearch />
-                        <input type="text" placeholder="Search products..." />
-                    </div>
+                    {showSearch && (
+                        <div className={styles.mobileSearch}>
+                            <FiSearch />
+                            <input type="text" placeholder="Search products..." />
+                        </div>
+                    )}
                     <nav className={styles.mobileNav}>
-                        <Link href="/products">All Products</Link>
-                        <Link href="/products?category=electronics">Electronics</Link>
-                        <Link href="/products?category=fashion">Fashion</Link>
-                        <Link href="/products?category=home">Home & Garden</Link>
-                        <Link href="/products?category=beauty">Beauty</Link>
-                        <Link href="/stores">Stores</Link>
-                        <Link href="/deals">Deals</Link>
+                        {navLinks.map((link, i) => (
+                            <Link key={i} href={link.url}>{link.label}</Link>
+                        ))}
                     </nav>
                     {!session && (
                         <div className={styles.mobileAuth}>

@@ -1,3 +1,6 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import {
     FiFacebook, FiTwitter, FiInstagram, FiYoutube, FiMail,
@@ -5,7 +8,46 @@ import {
 } from 'react-icons/fi'
 import styles from './Footer.module.css'
 
+interface FooterSettings {
+    logoLight?: string
+    logoDark?: string
+    siteName?: string
+    footerAboutText?: string
+    footerPhone?: string
+    footerEmail?: string
+    footerAddress?: string
+    footerCopyright?: string
+    footerShowNewsletter?: boolean
+    footerSocialFacebook?: string
+    footerSocialTwitter?: string
+    footerSocialInstagram?: string
+    footerSocialYoutube?: string
+}
+
 export default function Footer() {
+    const [settings, setSettings] = useState<FooterSettings>({})
+    const [theme, setTheme] = useState<'light' | 'dark'>('light')
+
+    useEffect(() => {
+        fetchSettings()
+        const stored = localStorage.getItem('theme') as 'light' | 'dark' | null
+        if (stored) setTheme(stored)
+    }, [])
+
+    const fetchSettings = async () => {
+        try {
+            const res = await fetch('/api/settings')
+            if (res.ok) {
+                const data = await res.json()
+                setSettings(data)
+            }
+        } catch (error) {
+            console.error('Error fetching settings:', error)
+        }
+    }
+
+    const currentLogo = theme === 'dark' ? settings.logoDark : settings.logoLight
+
     return (
         <footer className={styles.footer}>
             {/* Features Bar */}
@@ -51,20 +93,41 @@ export default function Footer() {
                         {/* About */}
                         <div className={styles.footerSection}>
                             <Link href="/" className={styles.footerLogo}>
-                                <span className={styles.logoIcon}>🛍️</span>
-                                <span className={styles.logoText}>
-                                    MP<span>Marketplace</span>
-                                </span>
+                                {currentLogo ? (
+                                    <img src={currentLogo} alt={settings.siteName || 'Logo'} className={styles.logoImage} />
+                                ) : (
+                                    <>
+                                        <span className={styles.logoIcon}>🛍️</span>
+                                        <span className={styles.logoText}>
+                                            {settings.siteName || 'MP'}<span>Marketplace</span>
+                                        </span>
+                                    </>
+                                )}
                             </Link>
                             <p className={styles.aboutText}>
-                                Your one-stop destination for quality products from verified sellers.
-                                Shop with confidence and enjoy the best deals online.
+                                {settings.footerAboutText || 'Your one-stop destination for quality products from verified sellers. Shop with confidence and enjoy the best deals online.'}
                             </p>
                             <div className={styles.socialLinks}>
-                                <a href="#" aria-label="Facebook"><FiFacebook /></a>
-                                <a href="#" aria-label="Twitter"><FiTwitter /></a>
-                                <a href="#" aria-label="Instagram"><FiInstagram /></a>
-                                <a href="#" aria-label="YouTube"><FiYoutube /></a>
+                                {settings.footerSocialFacebook && (
+                                    <a href={settings.footerSocialFacebook} target="_blank" rel="noopener" aria-label="Facebook"><FiFacebook /></a>
+                                )}
+                                {settings.footerSocialTwitter && (
+                                    <a href={settings.footerSocialTwitter} target="_blank" rel="noopener" aria-label="Twitter"><FiTwitter /></a>
+                                )}
+                                {settings.footerSocialInstagram && (
+                                    <a href={settings.footerSocialInstagram} target="_blank" rel="noopener" aria-label="Instagram"><FiInstagram /></a>
+                                )}
+                                {settings.footerSocialYoutube && (
+                                    <a href={settings.footerSocialYoutube} target="_blank" rel="noopener" aria-label="YouTube"><FiYoutube /></a>
+                                )}
+                                {!settings.footerSocialFacebook && !settings.footerSocialTwitter && !settings.footerSocialInstagram && !settings.footerSocialYoutube && (
+                                    <>
+                                        <a href="#" aria-label="Facebook"><FiFacebook /></a>
+                                        <a href="#" aria-label="Twitter"><FiTwitter /></a>
+                                        <a href="#" aria-label="Instagram"><FiInstagram /></a>
+                                        <a href="#" aria-label="YouTube"><FiYoutube /></a>
+                                    </>
+                                )}
                             </div>
                         </div>
 
@@ -111,30 +174,32 @@ export default function Footer() {
                             <ul className={styles.contactList}>
                                 <li>
                                     <FiMapPin />
-                                    <span>123 Market Street, NY 10001</span>
+                                    <span>{settings.footerAddress || '123 Market Street, NY 10001'}</span>
                                 </li>
                                 <li>
                                     <FiPhone />
-                                    <span>+1 (555) 123-4567</span>
+                                    <span>{settings.footerPhone || '+1 (555) 123-4567'}</span>
                                 </li>
                                 <li>
                                     <FiMail />
-                                    <span>support@mpmarketplace.com</span>
+                                    <span>{settings.footerEmail || 'support@mpmarketplace.com'}</span>
                                 </li>
                             </ul>
-                            <div className={styles.newsletter}>
-                                <h4>Subscribe to Newsletter</h4>
-                                <form className={styles.newsletterForm}>
-                                    <input
-                                        type="email"
-                                        placeholder="Enter your email"
-                                        className={styles.newsletterInput}
-                                    />
-                                    <button type="submit" className={styles.newsletterButton}>
-                                        Subscribe
-                                    </button>
-                                </form>
-                            </div>
+                            {(settings.footerShowNewsletter !== false) && (
+                                <div className={styles.newsletter}>
+                                    <h4>Subscribe to Newsletter</h4>
+                                    <form className={styles.newsletterForm}>
+                                        <input
+                                            type="email"
+                                            placeholder="Enter your email"
+                                            className={styles.newsletterInput}
+                                        />
+                                        <button type="submit" className={styles.newsletterButton}>
+                                            Subscribe
+                                        </button>
+                                    </form>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -144,7 +209,7 @@ export default function Footer() {
             <div className={styles.bottomBar}>
                 <div className="container">
                     <div className={styles.bottomContent}>
-                        <p>&copy; {new Date().getFullYear()} MP Marketplace. All rights reserved.</p>
+                        <p>{settings.footerCopyright || `© ${new Date().getFullYear()} MP Marketplace. All rights reserved.`}</p>
                         <div className={styles.bottomLinks}>
                             <Link href="/privacy">Privacy Policy</Link>
                             <Link href="/terms">Terms of Service</Link>

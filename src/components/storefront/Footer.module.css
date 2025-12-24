@@ -81,6 +81,13 @@
     background-clip: text;
 }
 
+.logoImage {
+    height: 36px;
+    width: auto;
+    max-width: 160px;
+    object-fit: contain;
+}
+
 .aboutText {
     color: var(--text-secondary);
     font-size: var(--font-size-sm);

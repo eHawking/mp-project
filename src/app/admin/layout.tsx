@@ -22,6 +22,7 @@ const sidebarItems = [
     { href: '/admin/banners', icon: FiImage, label: 'Banners' },
     { href: '/admin/analytics', icon: FiBarChart2, label: 'Analytics' },
     { href: '/admin/ai-support', icon: FiCpu, label: 'AI Support' },
+    { href: '/admin/appearance', icon: FiImage, label: 'Appearance' },
     { href: '/admin/settings', icon: FiSettings, label: 'Settings' },
 ]
 
