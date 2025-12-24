@@ -1,0 +1,167 @@
+.page {
+    padding: var(--space-lg);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-xl);
+    flex-wrap: wrap;
+    gap: var(--space-md);
+}
+
+.header h1 {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.actions {
+    display: flex;
+    gap: var(--space-md);
+}
+
+.searchBox {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+}
+
+.searchBox input {
+    border: none;
+    background: none;
+    outline: none;
+    color: var(--text-primary);
+    min-width: 200px;
+}
+
+.searchBox svg {
+    color: var(--text-tertiary);
+}
+
+.filterSelect {
+    padding: var(--space-sm) var(--space-md);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.tableWrapper {
+    background: var(--bg-primary);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: var(--space-md) var(--space-lg);
+    text-align: left;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.table th {
+    background: var(--bg-secondary);
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: var(--font-size-sm);
+}
+
+.table td {
+    color: var(--text-secondary);
+}
+
+.vendorInfo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    color: white;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.email {
+    font-size: var(--font-size-sm);
+    color: var(--text-tertiary);
+}
+
+.status {
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.status.active {
+    background: var(--success-light);
+    color: var(--success);
+}
+
+.status.pending {
+    background: var(--warning-light);
+    color: var(--warning);
+}
+
+.status.suspended {
+    background: var(--error-light);
+    color: var(--error);
+}
+
+.actionBtns {
+    display: flex;
+    gap: var(--space-xs);
+}
+
+.actionBtns button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--bg-secondary);
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.actionBtns button:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.actionBtns .approve:hover {
+    background: var(--success);
+}
+
+.actionBtns .reject:hover {
+    background: var(--error);
+}
