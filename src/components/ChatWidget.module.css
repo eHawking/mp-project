@@ -256,6 +256,92 @@
     cursor: not-allowed;
 }
 
+/* Attachment and Voice Buttons */
+.attachBtn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.attachBtn:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+/* Message Image */
+.messageImage {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 4px;
+}
+
+/* Voice Message */
+.voiceMessage {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+/* Recording Bar */
+.recordingBar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 8px 16px;
+    background: var(--error-light);
+    border-radius: 24px;
+    color: var(--error);
+    font-size: 0.9rem;
+}
+
+.recordingDot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--error);
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.stopBtn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+    padding: 6px 12px;
+    background: var(--error);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
 /* Responsive */
 @media (max-width: 480px) {
     .chatWindow {
