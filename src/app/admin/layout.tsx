@@ -7,7 +7,7 @@ import { useSession, signOut } from 'next-auth/react'
 import {
     FiHome, FiUsers, FiPackage, FiShoppingBag, FiSettings,
     FiBarChart2, FiSun, FiMoon, FiLogOut, FiChevronLeft, FiChevronRight,
-    FiBell, FiGrid, FiLayers, FiFileText, FiMenu, FiImage, FiZap
+    FiBell, FiGrid, FiLayers, FiFileText, FiMenu, FiImage, FiCpu
 } from 'react-icons/fi'
 import styles from './layout.module.css'
 
@@ -21,7 +21,7 @@ const sidebarItems = [
     { href: '/admin/cms', icon: FiFileText, label: 'CMS Pages' },
     { href: '/admin/banners', icon: FiImage, label: 'Banners' },
     { href: '/admin/analytics', icon: FiBarChart2, label: 'Analytics' },
-    { href: '/admin/ai-settings', icon: FiZap, label: 'AI Settings' },
+    { href: '/admin/ai-support', icon: FiCpu, label: 'AI Support' },
     { href: '/admin/settings', icon: FiSettings, label: 'Settings' },
 ]
 
