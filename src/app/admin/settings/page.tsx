@@ -2,9 +2,11 @@
 
 import { useState } from 'react'
 import { FiSave, FiGlobe, FiMail, FiDollarSign, FiShield, FiBell, FiDatabase } from 'react-icons/fi'
+import { useToast } from '@/components/Toast'
 import styles from './page.module.css'
 
 export default function SettingsPage() {
+    const { showToast } = useToast()
     const [settings, setSettings] = useState({
         siteName: 'MP Marketplace',
         siteUrl: 'https://dewdropskin.com',
@@ -17,7 +19,8 @@ export default function SettingsPage() {
     })
 
     const handleSave = () => {
-        alert('Settings saved successfully!')
+        // Simulate saving
+        showToast('Settings saved successfully!', 'success')
     }
 
     return (

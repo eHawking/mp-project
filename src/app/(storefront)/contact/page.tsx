@@ -2,14 +2,16 @@
 
 import { useState } from 'react'
 import { FiMail, FiPhone, FiMapPin, FiSend, FiClock } from 'react-icons/fi'
+import { useToast } from '@/components/Toast'
 import styles from './page.module.css'
 
 export default function ContactPage() {
+    const { showToast } = useToast()
     const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' })
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        alert('Message sent! We will get back to you soon.')
+        showToast('Message sent successfully! We will get back to you soon.', 'success')
         setFormData({ name: '', email: '', subject: '', message: '' })
     }
 
