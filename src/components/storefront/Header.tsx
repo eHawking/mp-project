@@ -8,6 +8,7 @@ import {
     FiSun, FiMoon, FiChevronDown, FiLogOut, FiPackage, FiSettings,
     FiGrid, FiShoppingBag
 } from 'react-icons/fi'
+import CurrencySelector from '@/components/CurrencySelector'
 import styles from './Header.module.css'
 
 interface SiteSettings {
@@ -83,6 +84,7 @@ export default function Header() {
                         <div className={styles.topBarLinks}>
                             <Link href="/seller/register">Become a Seller</Link>
                             <Link href="/help">Help Center</Link>
+                            <CurrencySelector />
                         </div>
                     </div>
                 </div>
