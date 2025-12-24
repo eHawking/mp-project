@@ -1,33 +1,86 @@
 'use client'
 
-import { useState } from 'react'
-import { FiSave, FiGlobe, FiMail, FiDollarSign, FiShield, FiBell, FiDatabase } from 'react-icons/fi'
+import { useState, useEffect } from 'react'
+import { FiSave, FiGlobe, FiMail, FiDollarSign, FiShield, FiBell, FiDatabase, FiLoader } from 'react-icons/fi'
 import { useToast } from '@/components/Toast'
 import styles from './page.module.css'
 
+const defaultSettings = {
+    siteName: 'MP Marketplace',
+    siteUrl: 'https://dewdropskin.com',
+    supportEmail: 'support@mpmarketplace.com',
+    commissionRate: 10,
+    minPayout: 50,
+    enableRegistration: true,
+    enableReviews: true,
+    enableAI: true,
+}
+
 export default function SettingsPage() {
     const { showToast } = useToast()
-    const [settings, setSettings] = useState({
-        siteName: 'MP Marketplace',
-        siteUrl: 'https://dewdropskin.com',
-        supportEmail: 'support@mpmarketplace.com',
-        commissionRate: 10,
-        minPayout: 50,
-        enableRegistration: true,
-        enableReviews: true,
-        enableAI: true,
-    })
+    const [settings, setSettings] = useState(defaultSettings)
+    const [loading, setLoading] = useState(true)
+    const [saving, setSaving] = useState(false)
 
-    const handleSave = () => {
-        // Simulate saving
-        showToast('Settings saved successfully!', 'success')
+    // Fetch settings on mount
+    useEffect(() => {
+        fetchSettings()
+    }, [])
+
+    const fetchSettings = async () => {
+        try {
+            const res = await fetch('/api/settings')
+            if (res.ok) {
+                const data = await res.json()
+                setSettings({ ...defaultSettings, ...data })
+            }
+        } catch (error) {
+            console.error('Error fetching settings:', error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const handleSave = async () => {
+        setSaving(true)
+        try {
+            const res = await fetch('/api/settings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(settings),
+            })
+
+            if (res.ok) {
+                showToast('Settings saved successfully!', 'success')
+            } else {
+                const data = await res.json()
+                showToast(data.error || 'Failed to save settings', 'error')
+            }
+        } catch (error) {
+            showToast('Failed to save settings', 'error')
+        } finally {
+            setSaving(false)
+        }
+    }
+
+    if (loading) {
+        return (
+            <div className={styles.page}>
+                <div className={styles.loading}>
+                    <FiLoader className={styles.spinner} /> Loading settings...
+                </div>
+            </div>
+        )
     }
 
     return (
         <div className={styles.page}>
             <div className={styles.header}>
                 <h1>Platform Settings</h1>
-                <button className={styles.saveBtn} onClick={handleSave}><FiSave /> Save Changes</button>
+                <button className={styles.saveBtn} onClick={handleSave} disabled={saving}>
+                    {saving ? <FiLoader className={styles.spinner} /> : <FiSave />}
+                    {saving ? 'Saving...' : 'Save Changes'}
+                </button>
             </div>
 
             <div className={styles.sections}>
