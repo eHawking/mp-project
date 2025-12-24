@@ -3,7 +3,7 @@
 import { useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { FiUser, FiPackage, FiHeart, FiMapPin, FiSettings, FiLogOut, FiChevronRight } from 'react-icons/fi'
+import { FiUser, FiPackage, FiHeart, FiMapPin, FiSettings, FiChevronRight, FiShield, FiCreditCard } from 'react-icons/fi'
 import styles from './page.module.css'
 
 export default function AccountPage() {
@@ -20,8 +20,10 @@ export default function AccountPage() {
     const menuItems = [
         { icon: FiUser, label: 'Profile Information', href: '/account/profile', desc: 'Manage your personal details' },
         { icon: FiPackage, label: 'My Orders', href: '/account/orders', desc: 'Track and manage your orders' },
+        { icon: FiCreditCard, label: 'My Wallet', href: '/account/wallet', desc: 'Add funds and view balance' },
         { icon: FiHeart, label: 'Wishlist', href: '/wishlist', desc: 'View your saved items' },
         { icon: FiMapPin, label: 'Addresses', href: '/account/addresses', desc: 'Manage delivery addresses' },
+        { icon: FiShield, label: 'Security', href: '/account/security', desc: 'Two-factor authentication' },
         { icon: FiSettings, label: 'Settings', href: '/account/settings', desc: 'Account preferences' },
     ]
 
