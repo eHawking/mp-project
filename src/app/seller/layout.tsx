@@ -1,14 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useSession, signOut } from 'next-auth/react'
-import { useTheme } from '@/components/ThemeProvider'
 import {
     FiHome, FiPackage, FiShoppingBag, FiDollarSign, FiSettings,
     FiBarChart2, FiSun, FiMoon, FiLogOut, FiChevronLeft, FiChevronRight,
-    FiBell, FiZap, FiUsers, FiMessageSquare, FiMenu
+    FiBell, FiZap, FiMessageSquare, FiMenu
 } from 'react-icons/fi'
 import styles from './layout.module.css'
 
@@ -29,9 +28,23 @@ export default function SellerLayout({
 }) {
     const pathname = usePathname()
     const { data: session } = useSession()
-    const { theme, toggleTheme } = useTheme()
     const [collapsed, setCollapsed] = useState(false)
     const [mobileOpen, setMobileOpen] = useState(false)
+    const [theme, setTheme] = useState<'light' | 'dark'>('light')
+
+    useEffect(() => {
+        const stored = localStorage.getItem('theme') as 'light' | 'dark' | null
+        if (stored) {
+            setTheme(stored)
+        }
+    }, [])
+
+    const toggleTheme = () => {
+        const newTheme = theme === 'light' ? 'dark' : 'light'
+        setTheme(newTheme)
+        localStorage.setItem('theme', newTheme)
+        document.documentElement.setAttribute('data-theme', newTheme)
+    }
 
     return (
         <div className={styles.layout}>
