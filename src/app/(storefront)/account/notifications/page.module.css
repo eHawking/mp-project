@@ -1,0 +1,216 @@
+.notificationsPage {
+    padding: var(--space-2xl) 0;
+    min-height: 70vh;
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3xl);
+}
+
+.backBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    color: var(--text-secondary);
+    text-decoration: none;
+    margin-bottom: var(--space-lg);
+}
+
+.backBtn:hover {
+    color: var(--primary);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-xl);
+    flex-wrap: wrap;
+    gap: var(--space-md);
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.unreadBadge {
+    display: inline-block;
+    margin-left: var(--space-md);
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--primary);
+    color: white;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    border-radius: var(--radius-full);
+}
+
+.headerActions {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+.markAllBtn,
+.clearBtn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--bg-secondary);
+    border: none;
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+.markAllBtn:hover {
+    color: var(--primary);
+}
+
+.clearBtn:hover {
+    color: var(--error);
+}
+
+/* Notifications List */
+.notificationsList {
+    max-width: 700px;
+}
+
+.notification {
+    display: flex;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    background: var(--bg-primary);
+    border-radius: var(--radius-xl);
+    margin-bottom: var(--space-md);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+
+.notification:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.notification.unread {
+    background: var(--primary-light);
+    border-left: 4px solid var(--primary);
+}
+
+.icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.icon.order {
+    background: var(--info-light);
+    color: var(--info);
+}
+
+.icon.promo {
+    background: var(--success-light);
+    color: var(--success);
+}
+
+.icon.reward {
+    background: var(--warning-light);
+    color: var(--warning);
+}
+
+.icon.alert {
+    background: var(--error-light);
+    color: var(--error);
+}
+
+.content {
+    flex: 1;
+    min-width: 0;
+}
+
+.notifHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-xs);
+}
+
+.notifHeader h3 {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.time {
+    font-size: var(--font-size-xs);
+    color: var(--text-tertiary);
+    white-space: nowrap;
+}
+
+.content p {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-sm);
+}
+
+.viewLink {
+    font-size: var(--font-size-sm);
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.readBtn,
+.deleteBtn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-secondary);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    color: var(--text-tertiary);
+}
+
+.readBtn:hover {
+    color: var(--success);
+    background: var(--success-light);
+}
+
+.deleteBtn:hover {
+    color: var(--error);
+    background: var(--error-light);
+}
+
+.emptyState {
+    text-align: center;
+    padding: var(--space-3xl);
+    color: var(--text-tertiary);
+}
+
+.emptyState svg {
+    font-size: 3rem;
+    margin-bottom: var(--space-md);
+    opacity: 0.5;
+}
