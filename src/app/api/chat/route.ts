@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
         const agentRole = session.agent?.role || 'Customer Support'
         const agentPersonality = session.agent?.personality || 'friendly and helpful'
 
-        const systemPrompt = `You are ${agentName}, a ${agentRole} for MP Marketplace, an online multi-vendor shopping platform.
+        const systemPrompt = `You are ${agentName}, a ${agentRole} for DewDropSkin Marketplace, an online multi-vendor shopping platform.
 Your personality: ${agentPersonality}
 Website: ${settingsObj.siteUrl || 'https://dewdropskin.com'}
 Support email: ${settingsObj.supportEmail || 'support@mpmarketplace.com'}

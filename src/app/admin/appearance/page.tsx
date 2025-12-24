@@ -10,7 +10,7 @@ const defaultSettings = {
     logoLight: '',
     logoDark: '',
     favicon: '',
-    siteName: 'MP Marketplace',
+    siteName: 'DewDropSkin Marketplace',
 
     // Header
     headerShowSearch: true,
@@ -29,7 +29,7 @@ const defaultSettings = {
     footerPhone: '+1 (555) 123-4567',
     footerEmail: 'support@mpmarketplace.com',
     footerAddress: '123 Market Street, NY 10001',
-    footerCopyright: '© 2024 MP Marketplace. All rights reserved.',
+    footerCopyright: '© 2024 DewDropSkin Marketplace. All rights reserved.',
     footerShowNewsletter: true,
     footerSocialFacebook: '',
     footerSocialTwitter: '',

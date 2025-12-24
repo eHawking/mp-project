@@ -100,7 +100,7 @@ export default function Header() {
                                 <>
                                     <span className={styles.logoIcon}>🛍️</span>
                                     <span className={styles.logoText}>
-                                        {settings.siteName || 'MP'}<span>Marketplace</span>
+                                        {settings.siteName || 'DewDropSkin'}
                                     </span>
                                 </>
                             )}

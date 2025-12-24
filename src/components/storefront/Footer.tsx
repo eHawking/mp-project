@@ -99,7 +99,7 @@ export default function Footer() {
                                     <>
                                         <span className={styles.logoIcon}>🛍️</span>
                                         <span className={styles.logoText}>
-                                            {settings.siteName || 'MP'}<span>Marketplace</span>
+                                            {settings.siteName || 'DewDropSkin'}
                                         </span>
                                     </>
                                 )}
@@ -209,7 +209,7 @@ export default function Footer() {
             <div className={styles.bottomBar}>
                 <div className="container">
                     <div className={styles.bottomContent}>
-                        <p>{settings.footerCopyright || `© ${new Date().getFullYear()} MP Marketplace. All rights reserved.`}</p>
+                        <p>{settings.footerCopyright || `© ${new Date().getFullYear()} DewDropSkin Marketplace. All rights reserved.`}</p>
                         <div className={styles.bottomLinks}>
                             <Link href="/privacy">Privacy Policy</Link>
                             <Link href="/terms">Terms of Service</Link>

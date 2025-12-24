@@ -111,7 +111,7 @@ export default function RegisterPage() {
                     <div className={styles.formCard}>
                         <div className={styles.formHeader}>
                             <h2>Create Account</h2>
-                            <p>Join MP Marketplace today</p>
+                            <p>Join DewDropSkin Marketplace today</p>
                         </div>
 
                         {error && (

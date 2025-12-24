@@ -7,16 +7,16 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
     title: {
-        default: 'MP Marketplace - Premium Multi-Vendor Shopping',
-        template: '%s | MP Marketplace',
+        default: 'DewDropSkin Marketplace - Premium Multi-Vendor Shopping',
+        template: '%s | DewDropSkin Marketplace',
     },
-    description: 'Discover amazing products from trusted sellers on MP Marketplace. Shop electronics, fashion, home & more with secure payments and fast delivery.',
+    description: 'Discover amazing products from trusted sellers on DewDropSkin Marketplace. Shop electronics, fashion, home & more with secure payments and fast delivery.',
     keywords: ['marketplace', 'ecommerce', 'shopping', 'online store', 'multi-vendor'],
-    authors: [{ name: 'MP Marketplace' }],
+    authors: [{ name: 'DewDropSkin Marketplace' }],
     openGraph: {
         type: 'website',
         locale: 'en_US',
-        siteName: 'MP Marketplace',
+        siteName: 'DewDropSkin Marketplace',
     },
 }
 

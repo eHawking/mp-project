@@ -38,7 +38,7 @@ export default function ChatWidget() {
             setMessages([{
                 id: '1',
                 role: 'assistant',
-                content: 'Hi! 👋 Welcome to MP Marketplace. How can I help you today?'
+                content: 'Hi! 👋 Welcome to DewDropSkin Marketplace. How can I help you today?'
             }])
         }
     }, [isOpen])

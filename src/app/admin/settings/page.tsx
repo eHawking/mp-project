@@ -6,7 +6,7 @@ import { useToast } from '@/components/Toast'
 import styles from './page.module.css'
 
 const defaultSettings = {
-    siteName: 'MP Marketplace',
+    siteName: 'DewDropSkin Marketplace',
     siteUrl: 'https://dewdropskin.com',
     supportEmail: 'support@mpmarketplace.com',
     commissionRate: 10,

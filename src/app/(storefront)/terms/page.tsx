@@ -9,7 +9,7 @@ export default function TermsPage() {
 
                 <section>
                     <h2>1. Acceptance of Terms</h2>
-                    <p>By accessing and using MP Marketplace, you agree to be bound by these Terms of Service.</p>
+                    <p>By accessing and using DewDropSkin Marketplace, you agree to be bound by these Terms of Service.</p>
                 </section>
 
                 <section>
@@ -42,7 +42,7 @@ export default function TermsPage() {
 
                 <section>
                     <h2>6. Limitation of Liability</h2>
-                    <p>MP Marketplace is a platform connecting buyers and sellers. We are not responsible for transactions between parties.</p>
+                    <p>DewDropSkin Marketplace is a platform connecting buyers and sellers. We are not responsible for transactions between parties.</p>
                 </section>
             </div>
         </div>

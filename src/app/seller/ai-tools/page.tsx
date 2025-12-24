@@ -23,7 +23,7 @@ export default function AIToolsPage() {
         // Simulate API call
         setTimeout(() => {
             setSeoResult({
-                metaTitle: `${productName} - Premium Quality | MP Marketplace`,
+                metaTitle: `${productName} - Premium Quality | DewDropSkin Marketplace`,
                 metaDescription: `Discover the ${productName}. ${productDescription || 'High-quality product'} with free shipping and hassle-free returns. Shop now!`,
                 metaKeywords: `${productName.toLowerCase()}, ${category || 'products'}, buy online, best deals, premium quality`,
                 enhancedDescription: `Introducing the ${productName} - a premium product designed for excellence. ${productDescription || ''} Features premium materials, exceptional craftsmanship, and unmatched quality. Perfect for discerning customers who value both style and substance. Experience the difference with our satisfaction guarantee.`,
@@ -38,9 +38,9 @@ export default function AIToolsPage() {
         setLoading(true)
 
         const posts = {
-            facebook: `🎉 NEW ARRIVAL ALERT! 🎉\n\nIntroducing our ${productName}! 🌟\n\n${productDescription || 'Your must-have item of the season!'}\n\n✨ Premium Quality\n🚚 Free Shipping\n💯 Satisfaction Guaranteed\n\n👉 Shop now and get 10% OFF with code: SOCIAL10\n\n#NewArival #ShopNow #${productName.replace(/\s+/g, '')} #MPMarketplace #Sale`,
-            twitter: `🚀 Just dropped: ${productName}! ${productDescription || ''}\n\n✅ Premium quality\n✅ Free shipping\n✅ 10% OFF: SOCIAL10\n\nShop now! 🛒\n\n#NewProduct #MPMarketplace`,
-            instagram: `✨ Say hello to the ${productName}! ✨\n\n${productDescription || 'The perfect addition to your collection.'}\n\n💎 Premium craftsmanship\n📦 Free shipping worldwide\n🔄 Easy 30-day returns\n\nDouble tap if you love it! ❤️\n\n🛒 Link in bio!\n\n#ProductLaunch #NewIn #${productName.replace(/\s+/g, '')} #ShopNow #Lifestyle #Premium #MPMarketplace #InstaShop #MustHave #TrendingNow`
+            facebook: `🎉 NEW ARRIVAL ALERT! 🎉\n\nIntroducing our ${productName}! 🌟\n\n${productDescription || 'Your must-have item of the season!'}\n\n✨ Premium Quality\n🚚 Free Shipping\n💯 Satisfaction Guaranteed\n\n👉 Shop now and get 10% OFF with code: SOCIAL10\n\n#NewArival #ShopNow #${productName.replace(/\s+/g, '')} #DewDropSkin #Sale`,
+            twitter: `🚀 Just dropped: ${productName}! ${productDescription || ''}\n\n✅ Premium quality\n✅ Free shipping\n✅ 10% OFF: SOCIAL10\n\nShop now! 🛒\n\n#NewProduct #DewDropSkin`,
+            instagram: `✨ Say hello to the ${productName}! ✨\n\n${productDescription || 'The perfect addition to your collection.'}\n\n💎 Premium craftsmanship\n📦 Free shipping worldwide\n🔄 Easy 30-day returns\n\nDouble tap if you love it! ❤️\n\n🛒 Link in bio!\n\n#ProductLaunch #NewIn #${productName.replace(/\s+/g, '')} #ShopNow #Lifestyle #Premium #DewDropSkin #InstaShop #MustHave #TrendingNow`
         }
 
         setTimeout(() => {

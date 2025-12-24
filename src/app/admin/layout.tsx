@@ -124,7 +124,7 @@ export default function AdminLayout({
                                 )?.label || 'Dashboard'}
                             </h1>
                             <p className={styles.welcomeText}>
-                                MP Marketplace Admin 🛡️
+                                DewDropSkin Admin 🛡️
                             </p>
                         </div>
                     </div>
